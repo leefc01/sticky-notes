@@ -1,4 +1,3 @@
-# sticky-notes
 # Sticky Notes for PowerPoint
 
 Yellow sticky notes you can put right on top of your slides.
