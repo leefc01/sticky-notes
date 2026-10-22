@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sticky Notes</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <link rel="stylesheet" href="taskpane.css">
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h1>Sticky Notes</h1>
+      <button id="btn-refresh" class="link" title="Recount notes">Refresh</button>
+    </header>
+
+    <p id="status" class="status" aria-live="polite">Counting notes…</p>
+    <p id="msg" class="msg" aria-live="polite"></p>
+
+    <section id="confirm" class="confirm" hidden>
+      <p id="confirm-text">Delete all notes?</p>
+      <div class="row">
+        <button id="btn-confirm-no">Cancel</button>
+        <button id="btn-confirm-yes" class="danger">Delete</button>
+      </div>
+    </section>
+
+    <div class="grid">
+      <button id="btn-add" class="primary">Add note</button>
+      <button id="btn-prev">Previous</button>
+      <button id="btn-next">Next</button>
+      <button id="btn-del">Delete</button>
+      <button id="btn-delall">Delete all</button>
+      <button id="btn-hide">Hide all</button>
+      <button id="btn-show">Show all</button>
+    </div>
+
+    <p class="hint">The same commands are on the Home tab, in the Sticky Notes group.</p>
+  </main>
+  <script src="notes.js"></script>
+</body>
+</html>

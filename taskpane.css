@@ -1,0 +1,25 @@
+:root {
+  --ink: #222; --muted: #666; --line: #c8c8c8; --bg: #fff; --hover: #f3f3f3;
+  --note: #FFE97A; --note-line: #E0B000; --danger-bg: #fde2e2; --danger: #c62828;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --ink: #eee; --muted: #aaa; --line: #555; --bg: #1f1f1f; --hover: #2b2b2b; --danger-bg: #4a1f1f; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 13px/1.4 "Segoe UI", system-ui, -apple-system, sans-serif; }
+.wrap { padding: 14px; }
+header { display: flex; align-items: baseline; justify-content: space-between; }
+h1 { font-size: 16px; margin: 0 0 6px; }
+.status { font-weight: 600; margin: 4px 0; }
+.msg { color: var(--muted); min-height: 1.4em; margin: 0 0 10px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+button { font: inherit; color: var(--ink); padding: 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); cursor: pointer; }
+button:hover { background: var(--hover); }
+button.primary { grid-column: span 2; background: var(--note); border-color: var(--note-line); color: #222; font-weight: 600; }
+button.danger { background: var(--danger-bg); border-color: var(--danger); font-weight: 600; }
+button.link { border: none; background: none; color: var(--muted); padding: 0; text-decoration: underline; }
+.confirm { border: 1px solid var(--danger); border-radius: 8px; padding: 12px; margin: 0 0 12px; }
+.confirm p { margin: 0 0 10px; font-weight: 600; }
+.confirm .row { display: flex; gap: 8px; }
+.confirm .row button { flex: 1; }
+.hint { color: var(--muted); font-size: 11.5px; margin-top: 14px; }
