@@ -50,7 +50,44 @@ The add-in runs entirely inside PowerPoint. Note text stays in your presentation
 
 ## Installing
 
-Sticky Notes is deployed to users by their Microsoft 365 administrator through **Admin center → Settings → Integrated apps**, using the add-in's manifest file. Once deployed, it appears on the Home tab in PowerPoint.
+### For organizations
+
+A Microsoft 365 administrator deploys Sticky Notes through **Admin center → Settings → Integrated apps → Upload custom apps**, using the manifest file. Once deployed, it appears on the Home tab in PowerPoint for the assigned users.
+
+### On your own (any Microsoft 365 plan, including Personal and Family)
+
+All three options use the same manifest file. First, download it: open [manifest.xml](https://leefc01.github.io/sticky-notes/manifest.xml), then save the page as `manifest.xml` (right-click → Save as).
+
+Microsoft describes these as testing and sideloading methods. They work, but you may occasionally need to repeat a step, for example after clearing browser data. Updates to the add-in's code reach you automatically.
+
+#### PowerPoint for the web
+
+1. Open any presentation at [office.com](https://www.office.com).
+2. Go to **Home → Add-ins** (on some versions it's under **Insert → Add-ins**, or in the **⋯** overflow of the ribbon).
+3. Select **More Add-ins** (or **More Settings**), open **My Add-ins**, and choose **Upload My Add-in** (top right).
+4. Browse to `manifest.xml` and select **Upload**.
+
+#### PowerPoint for Windows
+
+1. Create a folder, for example `C:\OfficeAddins`, and put `manifest.xml` in it.
+2. Share the folder: right-click it → **Properties → Sharing → Share**, then note the **network path** (for example `\\YOUR-PC\OfficeAddins`).
+3. In PowerPoint, go to **File → Options → Trust Center → Trust Center Settings → Trusted Add-in Catalogs**.
+4. Paste the network path into **Catalog Url**, select **Add catalog**, tick **Show in Menu**, then **OK**.
+5. Restart PowerPoint. Go to **Home → Add-ins** (or **Insert → My Add-ins**), open **Shared Folder**, choose **Sticky Notes**, then **Add**.
+
+#### PowerPoint for Mac
+
+1. In Finder, choose **Go → Go to Folder** and enter:
+   `~/Library/Containers/com.microsoft.Powerpoint/Data/Documents/wef`
+   If the `wef` folder doesn't exist, create it.
+2. Copy `manifest.xml` into that folder.
+3. Restart PowerPoint. Go to **Insert → Add-ins → My Add-ins** (or **Home → Add-ins**) and choose **Sticky Notes**.
+
+#### Good to know
+
+- The add-in's code is served from this site, so it always runs the latest published version. The version is shown at the bottom of the Sticky Notes pane.
+- Hide All / Show All need a recent Microsoft 365 build; older builds show a message instead.
+- To remove it: on the web, use **My Add-ins → ⋯ → Remove**; on Windows, remove the catalog in Trust Center; on Mac, delete `manifest.xml` from the `wef` folder.
 
 ## Versions
 
