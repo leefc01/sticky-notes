@@ -16,12 +16,14 @@ Two controls on the Home tab: **Add Note** and a **Notes** menu (which also incl
 | --- | --- |
 | **Add Note** | Adds a note to the top corner of the current slide, ready to type into. |
 | **Previous / Next** | Jumps to the previous or next slide that has a note, wrapping around at the ends. |
+| **Toggle Done** | Marks the selected notes done (or all on the slide): a faint tint, a ✓, and an optional "— Done FL · Oct 23" stamp. If they're all done already, reopens them. |
 | **Delete** | Deletes the selected note, or all notes on the current slide if none is selected. |
+| **Delete Done** | Deletes every done note in the deck, after asking for confirmation. |
 | **Delete All** | Deletes every note in the deck, after asking for confirmation. |
 | **Hide All / Show All** | Hides or shows every note in the deck, for example before presenting. |
-| **Open Pane** | Opens the side panel: note count, messages and settings. |
+| **Open Pane** | Opens the side panel: a checklist of all notes by slide (tick to mark done, click to jump), a progress bar, messages and settings. |
 
-**Settings** (in the pane, saved per user): where new notes appear (Top Left, Top Center, Top Right), note color (six choices, plus "apply to all notes"), and an optional prefix such as your initials.
+**Settings** (in the pane, saved per user): where new notes appear (Top Left, Top Center, Top Right), note color (six choices, plus "apply to all notes"), an optional prefix such as your initials, a Done stamp with who marked it, and whether Previous / Next skip done notes.
 
 Notes are ordinary shapes saved in the deck. They travel with the file and are visible to anyone who opens it, even without the add-in. They also appear when you present or print, unless you hide them first.
 
@@ -93,6 +95,7 @@ Microsoft describes these as testing and sideloading methods. They work, but you
 
 | Version | Changes |
 | --- | --- |
+| 1.3 | Toggle Done and Delete Done, done stamp, notes checklist with progress bar, skip done notes |
 | 1.2 | Add Note also in the Notes menu, title-case labels, smarter note placement, version shown in the pane |
 | 1.1 | Two-control ribbon, settings for position, color and prefix, cursor ready in new notes |
 | 1.0 | First release |
@@ -100,5 +103,4 @@ Microsoft describes these as testing and sideloading methods. They work, but you
 ## Roadmap
 
 - Keyboard shortcuts
-- A list of all notes in the pane, with click to jump
-- Author, date and a "resolved" state for team review
+- Author and date on each note for team review

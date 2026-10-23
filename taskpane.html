@@ -27,6 +27,8 @@
 
     <div class="grid">
       <button id="btn-add" class="primary">Add Note</button>
+      <button id="btn-toggle-done">Toggle Done</button>
+      <button id="btn-deldone">Delete Done</button>
       <button id="btn-prev">Previous</button>
       <button id="btn-next">Next</button>
       <button id="btn-del">Delete</button>
@@ -34,6 +36,20 @@
       <button id="btn-hide">Hide All</button>
       <button id="btn-show">Show All</button>
     </div>
+
+    <section class="progress" aria-label="Progress">
+      <p class="progress-text"><span id="progress-label">Counting…</span> <span id="hidden-count" class="muted"></span></p>
+      <div class="bar"><div id="progress-fill" class="bar-fill"></div></div>
+    </section>
+
+    <details id="notes-list" class="notes-list" open>
+      <summary id="list-summary">Notes</summary>
+      <div id="open-items"></div>
+      <details id="done-list" class="done-list" hidden>
+        <summary id="done-summary">Done</summary>
+        <div id="done-items"></div>
+      </details>
+    </details>
 
     <details class="settings">
       <summary>Settings</summary>
@@ -58,6 +74,16 @@
 
       <label class="label" for="prefix">Note Prefix (e.g. Your Initials)</label>
       <input id="prefix" type="text" placeholder="e.g. FL:" autocomplete="off">
+
+      <p class="label">Done Stamp</p>
+      <div class="inline">
+        <label class="switch"><input id="stamp-on" type="checkbox"> On</label>
+        <input id="who" type="text" placeholder="Who (e.g. FL)" autocomplete="off" aria-label="Done Stamp Who">
+      </div>
+      <p id="stamp-preview" class="hint tight">Off</p>
+
+      <label class="switch block"><input id="skip-done" type="checkbox" checked> Skip Done Notes</label>
+      <p class="hint tight">Previous / Next jump only to open notes.</p>
 
       <p class="hint">Settings are saved for you on this device.</p>
     </details>
