@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+           xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+           xsi:type="TaskPaneApp">
+  <Id>6f1c2b7e-4a3d-4c9e-9b52-5e0d8a7c31f4</Id>
+  <Version>1.0.1.0</Version>
+  <ProviderName>StatusGo</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Sticky Notes"/>
+  <Description DefaultValue="Yellow sticky notes on slides: add, jump between, hide, show and delete them."/>
+  <IconUrl DefaultValue="https://leefc01.github.io/sticky-notes/assets/group-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://leefc01.github.io/sticky-notes/assets/group-80.png"/>
+  <SupportUrl DefaultValue="https://statusgo.ai"/>
+  <Hosts>
+    <Host Name="Presentation"/>
+  </Hosts>
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="SharedRuntime" MinVersion="1.1"/>
+    </Sets>
+  </Requirements>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://leefc01.github.io/sticky-notes/taskpane.html"/>
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Presentation">
+        <Runtimes>
+          <Runtime resid="Taskpane.Url" lifetime="long"/>
+        </Runtimes>
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="GetStarted.Title"/>
+            <Description resid="GetStarted.Description"/>
+            <LearnMoreUrl resid="LearnMore.Url"/>
+          </GetStarted>
+          <FunctionFile resid="Taskpane.Url"/>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="SGNotes.Group">
+                <Label resid="Group.Label"/>
+                <Icon><bt:Image size="16" resid="Icon.group.16"/><bt:Image size="32" resid="Icon.group.32"/><bt:Image size="80" resid="Icon.group.80"/></Icon>
+                <Control xsi:type="Button" id="SGNotes.Add">
+                  <Label resid="Add.Label"/>
+                  <Supertip><Title resid="Add.Label"/><Description resid="Add.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.add.16"/><bt:Image size="32" resid="Icon.add.32"/><bt:Image size="80" resid="Icon.add.80"/></Icon>
+                  <Action xsi:type="ExecuteFunction"><FunctionName>addNote</FunctionName></Action>
+                </Control>
+                <Control xsi:type="Menu" id="SGNotes.Menu">
+                  <Label resid="Menu.Label"/>
+                  <Supertip><Title resid="Menu.Label"/><Description resid="Menu.Tip"/></Supertip>
+                  <Icon><bt:Image size="16" resid="Icon.group.16"/><bt:Image size="32" resid="Icon.group.32"/><bt:Image size="80" resid="Icon.group.80"/></Icon>
+                  <Items>
+                    <Item id="SGNotes.Prev">
+                      <Label resid="Prev.Label"/>
+                      <Supertip><Title resid="Prev.Label"/><Description resid="Prev.Tip"/></Supertip>
+                      <Icon><bt:Image size="16" resid="Icon.prev.16"/><bt:Image size="32" resid="Icon.prev.32"/><bt:Image size="80" resid="Icon.prev.80"/></Icon>
+                      <Action xsi:type="ExecuteFunction"><FunctionName>previousNote</FunctionName></Action>
+                    </Item>
+                    <Item id="SGNotes.Next">
+                      <Label resid="Next.Label"/>
+                      <Supertip><Title resid="Next.Label"/><Description resid="Next.Tip"/></Supertip>
+                      <Icon><bt:Image size="16" resid="Icon.next.16"/><bt:Image size="32" resid="Icon.next.32"/><bt:Image size="80" resid="Icon.next.80"/></Icon>
+                      <Action xsi:type="ExecuteFunction"><FunctionName>nextNote</FunctionName></Action>
+                    </Item>
+                    <Item id="SGNotes.Delete">
+                      <Label resid="Delete.Label"/>
+                      <Supertip><Title resid="Delete.Label"/><Description resid="Delete.Tip"/></Supertip>
+                      <Icon><bt:Image size="16" resid="Icon.delete.16"/><bt:Image size="32" resid="Icon.delete.32"/><bt:Image size="80" resid="Icon.delete.80"/></Icon>
+                      <Action xsi:type="ExecuteFunction"><FunctionName>deleteNote</FunctionName></Action>
+                    </Item>
+                    <Item id="SGNotes.DeleteAll">
+                      <Label resid="DeleteAll.Label"/>
+                      <Supertip><Title resid="DeleteAll.Label"/><Description resid="DeleteAll.Tip"/></Supertip>
+                      <Icon><bt:Image size="16" resid="Icon.deleteall.16"/><bt:Image size="32" resid="Icon.deleteall.32"/><bt:Image size="80" resid="Icon.deleteall.80"/></Icon>
+                      <Action xsi:type="ExecuteFunction"><FunctionName>deleteAllNotes</FunctionName></Action>
+                    </Item>
+                    <Item id="SGNotes.Hide">
+                      <Label resid="Hide.Label"/>
+                      <Supertip><Title resid="Hide.Label"/><Description resid="Hide.Tip"/></Supertip>
+                      <Icon><bt:Image size="16" resid="Icon.hide.16"/><bt:Image size="32" resid="Icon.hide.32"/><bt:Image size="80" resid="Icon.hide.80"/></Icon>
+                      <Action xsi:type="ExecuteFunction"><FunctionName>hideAllNotes</FunctionName></Action>
+                    </Item>
+                    <Item id="SGNotes.Show">
+                      <Label resid="Show.Label"/>
+                      <Supertip><Title resid="Show.Label"/><Description resid="Show.Tip"/></Supertip>
+                      <Icon><bt:Image size="16" resid="Icon.show.16"/><bt:Image size="32" resid="Icon.show.32"/><bt:Image size="80" resid="Icon.show.80"/></Icon>
+                      <Action xsi:type="ExecuteFunction"><FunctionName>showAllNotes</FunctionName></Action>
+                    </Item>
+                    <Item id="SGNotes.Pane">
+                      <Label resid="Pane.Label"/>
+                      <Supertip><Title resid="Pane.Label"/><Description resid="Pane.Tip"/></Supertip>
+                      <Icon><bt:Image size="16" resid="Icon.pane.16"/><bt:Image size="32" resid="Icon.pane.32"/><bt:Image size="80" resid="Icon.pane.80"/></Icon>
+                      <Action xsi:type="ShowTaskpane"><SourceLocation resid="Taskpane.Url"/></Action>
+                    </Item>
+                  </Items>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.add.16" DefaultValue="https://leefc01.github.io/sticky-notes/assets/add-16.png"/>
+        <bt:Image id="Icon.add.32" DefaultValue="https://leefc01.github.io/sticky-notes/assets/add-32.png"/>
+        <bt:Image id="Icon.add.80" DefaultValue="https://leefc01.github.io/sticky-notes/assets/add-80.png"/>
+        <bt:Image id="Icon.delete.16" DefaultValue="https://leefc01.github.io/sticky-notes/assets/delete-16.png"/>
+        <bt:Image id="Icon.delete.32" DefaultValue="https://leefc01.github.io/sticky-notes/assets/delete-32.png"/>
+        <bt:Image id="Icon.delete.80" DefaultValue="https://leefc01.github.io/sticky-notes/assets/delete-80.png"/>
+        <bt:Image id="Icon.deleteall.16" DefaultValue="https://leefc01.github.io/sticky-notes/assets/deleteall-16.png"/>
+        <bt:Image id="Icon.deleteall.32" DefaultValue="https://leefc01.github.io/sticky-notes/assets/deleteall-32.png"/>
+        <bt:Image id="Icon.deleteall.80" DefaultValue="https://leefc01.github.io/sticky-notes/assets/deleteall-80.png"/>
+        <bt:Image id="Icon.group.16" DefaultValue="https://leefc01.github.io/sticky-notes/assets/group-16.png"/>
+        <bt:Image id="Icon.group.32" DefaultValue="https://leefc01.github.io/sticky-notes/assets/group-32.png"/>
+        <bt:Image id="Icon.group.80" DefaultValue="https://leefc01.github.io/sticky-notes/assets/group-80.png"/>
+        <bt:Image id="Icon.hide.16" DefaultValue="https://leefc01.github.io/sticky-notes/assets/hide-16.png"/>
+        <bt:Image id="Icon.hide.32" DefaultValue="https://leefc01.github.io/sticky-notes/assets/hide-32.png"/>
+        <bt:Image id="Icon.hide.80" DefaultValue="https://leefc01.github.io/sticky-notes/assets/hide-80.png"/>
+        <bt:Image id="Icon.next.16" DefaultValue="https://leefc01.github.io/sticky-notes/assets/next-16.png"/>
+        <bt:Image id="Icon.next.32" DefaultValue="https://leefc01.github.io/sticky-notes/assets/next-32.png"/>
+        <bt:Image id="Icon.next.80" DefaultValue="https://leefc01.github.io/sticky-notes/assets/next-80.png"/>
+        <bt:Image id="Icon.pane.16" DefaultValue="https://leefc01.github.io/sticky-notes/assets/pane-16.png"/>
+        <bt:Image id="Icon.pane.32" DefaultValue="https://leefc01.github.io/sticky-notes/assets/pane-32.png"/>
+        <bt:Image id="Icon.pane.80" DefaultValue="https://leefc01.github.io/sticky-notes/assets/pane-80.png"/>
+        <bt:Image id="Icon.prev.16" DefaultValue="https://leefc01.github.io/sticky-notes/assets/prev-16.png"/>
+        <bt:Image id="Icon.prev.32" DefaultValue="https://leefc01.github.io/sticky-notes/assets/prev-32.png"/>
+        <bt:Image id="Icon.prev.80" DefaultValue="https://leefc01.github.io/sticky-notes/assets/prev-80.png"/>
+        <bt:Image id="Icon.show.16" DefaultValue="https://leefc01.github.io/sticky-notes/assets/show-16.png"/>
+        <bt:Image id="Icon.show.32" DefaultValue="https://leefc01.github.io/sticky-notes/assets/show-32.png"/>
+        <bt:Image id="Icon.show.80" DefaultValue="https://leefc01.github.io/sticky-notes/assets/show-80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://leefc01.github.io/sticky-notes/taskpane.html"/>
+        <bt:Url id="LearnMore.Url" DefaultValue="https://statusgo.ai"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="Group.Label" DefaultValue="Sticky Notes"/>
+        <bt:String id="GetStarted.Title" DefaultValue="Sticky Notes is ready"/>
+        <bt:String id="Add.Label" DefaultValue="Add note"/>
+        <bt:String id="Prev.Label" DefaultValue="Previous"/>
+        <bt:String id="Next.Label" DefaultValue="Next"/>
+        <bt:String id="Delete.Label" DefaultValue="Delete"/>
+        <bt:String id="DeleteAll.Label" DefaultValue="Delete all"/>
+        <bt:String id="Hide.Label" DefaultValue="Hide all"/>
+        <bt:String id="Show.Label" DefaultValue="Show all"/>
+        <bt:String id="Pane.Label" DefaultValue="Notes pane"/>
+        <bt:String id="Menu.Label" DefaultValue="Notes"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="GetStarted.Description" DefaultValue="Use the Sticky Notes group on the Home tab to add and manage notes."/>
+        <bt:String id="Add.Tip" DefaultValue="Add a yellow sticky note to the current slide."/>
+        <bt:String id="Prev.Tip" DefaultValue="Go to the previous slide that has a note (wraps around)."/>
+        <bt:String id="Next.Tip" DefaultValue="Go to the next slide that has a note (wraps around)."/>
+        <bt:String id="Delete.Tip" DefaultValue="Delete the selected note, or all notes on this slide if none is selected."/>
+        <bt:String id="DeleteAll.Tip" DefaultValue="Delete every note in this deck (asks first)."/>
+        <bt:String id="Hide.Tip" DefaultValue="Hide every note in this deck."/>
+        <bt:String id="Show.Tip" DefaultValue="Show every note in this deck."/>
+        <bt:String id="Pane.Tip" DefaultValue="Open the Sticky Notes pane: note count, messages and confirmations."/>
+        <bt:String id="Menu.Tip" DefaultValue="Jump between, hide, show or delete sticky notes."/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>

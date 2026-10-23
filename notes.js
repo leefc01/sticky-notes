@@ -13,11 +13,66 @@
   var TAG = "SGNOTE";
   var NOTE_W = 144; // 2 in
   var NOTE_H = 108; // 1.5 in
-  var MARGIN = 16;
   var OFFSET = 18; // 0.25 in cascade for each extra note on a slide
-  var FILL = "#FFE97A";
-  var BORDER = "#E0B000";
   var TEXT = "#333333";
+  var PLACEHOLDER = "Note";
+  var PREFIX_MAX = 20;
+
+  var COLORS = {
+    yellow: { name: "Yellow", fill: "#FFE97A", border: "#E0B000" },
+    pink:   { name: "Pink",   fill: "#FFC2D6", border: "#E07A9E" },
+    blue:   { name: "Blue",   fill: "#BFE3FF", border: "#5FA8E0" },
+    green:  { name: "Green",  fill: "#C8F0B8", border: "#6FB85A" },
+    orange: { name: "Orange", fill: "#FFD3A3", border: "#E0944A" },
+    purple: { name: "Purple", fill: "#DCCBFF", border: "#9A7AE0" }
+  };
+  var POSITIONS = { tr: "Top right", tl: "Top left", tc: "Top center" };
+
+  // ---------- preferences (per user, per device; defaults if storage is unavailable) ----------
+
+  var PREFS_KEY = "sgnotes.prefs.v1";
+  var DEFAULTS = { position: "tr", color: "yellow", prefix: "" };
+
+  function loadPrefs() {
+    var p = {};
+    try { p = JSON.parse(root.localStorage.getItem(PREFS_KEY) || "{}") || {}; } catch (e) { p = {}; }
+    return {
+      position: POSITIONS[p.position] ? p.position : DEFAULTS.position,
+      color: COLORS[p.color] ? p.color : DEFAULTS.color,
+      prefix: typeof p.prefix === "string" ? p.prefix.slice(0, PREFIX_MAX) : DEFAULTS.prefix
+    };
+  }
+  var prefs = loadPrefs();
+
+  function savePrefs(changes) {
+    Object.keys(changes).forEach(function (k) { prefs[k] = changes[k]; });
+    prefs = (function (p) {
+      return {
+        position: POSITIONS[p.position] ? p.position : DEFAULTS.position,
+        color: COLORS[p.color] ? p.color : DEFAULTS.color,
+        prefix: String(p.prefix || "").slice(0, PREFIX_MAX)
+      };
+    })(prefs);
+    try { root.localStorage.setItem(PREFS_KEY, JSON.stringify(prefs)); } catch (e) { /* not persisted */ }
+    renderSettings();
+    return prefs;
+  }
+
+  /** Where the Nth note (0-based) on a slide goes, flush to the top edge. */
+  function notePosition(position, slideW, n) {
+    var d = n * OFFSET;
+    if (position === "tl") return { left: d, top: d };
+    if (position === "tc") return { left: Math.max(0, (slideW - NOTE_W) / 2), top: d };
+    return { left: Math.max(0, slideW - NOTE_W - d), top: d }; // tr (default)
+  }
+
+  /** Initial text and which part to select so typing replaces just the placeholder. */
+  function initialText(prefix) {
+    var p = String(prefix || "").trim();
+    if (!p) return { text: PLACEHOLDER, start: 0, length: PLACEHOLDER.length };
+    var head = p + " ";
+    return { text: head + PLACEHOLDER, start: head.length, length: PLACEHOLDER.length };
+  }
 
   // ---------- UI (no-ops when the pane DOM isn't there, e.g. in tests) ----------
 
@@ -135,31 +190,76 @@
         idx = i;
         return slideWidth(context).then(function (w) {
           var onSlide = scanned.notes.filter(function (n) { return n.slideIndex === idx; }).length;
-          var shape = scanned.slides[idx].shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle, {
-            left: Math.max(0, w - MARGIN - NOTE_W - onSlide * OFFSET),
-            top: MARGIN + onSlide * OFFSET,
-            width: NOTE_W,
-            height: NOTE_H
+          var pos = notePosition(prefs.position, w, onSlide);
+          var color = COLORS[prefs.color];
+          var init = initialText(prefs.prefix);
+          var slide = scanned.slides[idx];
+          var shape = slide.shapes.addGeometricShape(PowerPoint.GeometricShapeType.rectangle, {
+            left: pos.left, top: pos.top, width: NOTE_W, height: NOTE_H
           });
           shape.name = PREFIX + Date.now().toString(36) + Math.floor(Math.random() * 1296).toString(36);
-          shape.fill.setSolidColor(FILL);
-          shape.lineFormat.color = BORDER;
+          shape.fill.setSolidColor(color.fill);
+          shape.lineFormat.color = color.border;
           shape.lineFormat.weight = 0.75;
           shape.textFrame.verticalAlignment = PowerPoint.TextVerticalAlignment.top;
-          shape.textFrame.textRange.text = "Note";
+          shape.textFrame.textRange.text = init.text;
           shape.textFrame.textRange.font.color = TEXT;
           shape.textFrame.textRange.font.size = 12;
           shape.textFrame.textRange.paragraphFormat.horizontalAlignment = PowerPoint.ParagraphHorizontalAlignment.left;
           shape.tags.add(TAG, "1");
           shape.tags.add("SGNOTE_CREATED", new Date().toISOString());
+          shape.tags.add("SGNOTE_COLOR", prefs.color);
           if (hasApi("1.10")) {
             shape.altTextTitle = "Sticky note";
             shape.visible = true; // new notes are always visible, even after Hide all
           }
+          shape.load("id");
           return context.sync().then(function () {
-            scanned.notes.push({ slideIndex: idx, slideId: scanned.slides[idx].id, shape: shape });
+            scanned.notes.push({ slideIndex: idx, slideId: slide.id, shape: shape });
             setStatus(statusFor(scanned.notes));
+            return selectPlaceholder(context, slide, shape, init);
           });
+        });
+      });
+    });
+  }
+
+  /**
+   * Put the cursor in the new note: select the placeholder word so typing replaces it.
+   * Falls back to selecting the whole shape if text selection isn't available.
+   * Never fails the Add note command.
+   */
+  function selectPlaceholder(context, slide, shape, init) {
+    function selectShape() {
+      try {
+        slide.setSelectedShapes([shape.id]);
+        return context.sync().then(function () { return "shape"; }, function () { return "none"; });
+      } catch (e) { return Promise.resolve("none"); }
+    }
+    try {
+      shape.textFrame.textRange.getSubstring(init.start, init.length).setSelected();
+      return context.sync().then(function () { return "text"; }, selectShape);
+    } catch (e) {
+      return selectShape();
+    }
+  }
+
+  /** Recolor every note in the deck to the current color preference. */
+  function recolorAll() {
+    setMsg("");
+    var color = COLORS[prefs.color];
+    return run(function (context) {
+      return scan(context).then(function (s) {
+        setStatus(statusFor(s.notes));
+        if (!s.notes.length) { setMsg("No notes in this deck"); return 0; }
+        s.notes.forEach(function (n) {
+          n.shape.fill.setSolidColor(color.fill);
+          n.shape.lineFormat.color = color.border;
+          n.shape.tags.add("SGNOTE_COLOR", prefs.color);
+        });
+        return context.sync().then(function () {
+          setMsg("Recolored " + plural(s.notes.length, "note") + " " + color.name.toLowerCase());
+          return s.notes.length;
         });
       });
     });
@@ -302,8 +402,50 @@
     };
   }
 
+  // ---------- settings UI ----------
+
+  function renderSettings() {
+    if (typeof document === "undefined") return;
+    var posBtns = document.querySelectorAll("[data-position]");
+    Array.prototype.forEach.call(posBtns, function (b) {
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-position") === prefs.position));
+    });
+    var swatches = document.querySelectorAll("[data-color]");
+    Array.prototype.forEach.call(swatches, function (b) {
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-color") === prefs.color));
+    });
+    var input = el("prefix");
+    if (input && document.activeElement !== input) input.value = prefs.prefix;
+    setText("recolor-label", "Apply " + COLORS[prefs.color].name.toLowerCase() + " to all notes");
+  }
+
+  function bindSettings() {
+    if (typeof document === "undefined") return;
+    Array.prototype.forEach.call(document.querySelectorAll("[data-position]"), function (b) {
+      b.addEventListener("click", function () { savePrefs({ position: b.getAttribute("data-position") }); });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-color]"), function (b) {
+      var c = COLORS[b.getAttribute("data-color")];
+      if (c) { b.style.background = c.fill; b.style.borderColor = c.border; b.title = c.name; }
+      b.addEventListener("click", function () { savePrefs({ color: b.getAttribute("data-color") }); });
+    });
+    var input = el("prefix");
+    if (input) {
+      input.maxLength = PREFIX_MAX;
+      input.addEventListener("input", function () { savePrefs({ prefix: input.value }); });
+    }
+    bindButton("btn-recolor", recolorAll);
+    renderSettings();
+  }
+
   var api = {
     addNote: addNote,
+    recolorAll: recolorAll,
+    prefs: function () { return prefs; },
+    savePrefs: savePrefs,
+    _reloadPrefs: function () { prefs = loadPrefs(); return prefs; },
+    _notePosition: notePosition,
+    _initialText: initialText,
     next: function () { return goTo(1); },
     previous: function () { return goTo(-1); },
     deleteNotes: deleteNotes,
@@ -343,6 +485,7 @@
       bindButton("btn-confirm-yes", api.confirmDeleteAll);
       bindButton("btn-confirm-no", api.cancelDeleteAll);
       bindButton("btn-refresh", api.refresh);
+      bindSettings();
 
       if (!hasApi("1.10")) {
         setMsg("Update Office to use Sticky Notes. Hide all / Show all need a newer PowerPoint.");

@@ -23,3 +23,14 @@ button.link { border: none; background: none; color: var(--muted); padding: 0; t
 .confirm .row { display: flex; gap: 8px; }
 .confirm .row button { flex: 1; }
 .hint { color: var(--muted); font-size: 11.5px; margin-top: 14px; }
+.settings { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 10px; }
+.settings summary { font-weight: 600; cursor: pointer; padding: 4px 0; }
+.label { display: block; color: var(--muted); font-size: 11.5px; margin: 12px 0 6px; }
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.seg button { padding: 6px 4px; font-size: 12px; }
+.seg button[aria-pressed="true"] { border: 2px solid #2f6fd6; font-weight: 600; }
+.swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+.swatches button { width: 28px; height: 28px; padding: 0; border-radius: 50%; border: 1.5px solid var(--line); }
+.swatches button[aria-pressed="true"] { outline: 2px solid #2f6fd6; outline-offset: 2px; }
+button.wide { width: 100%; margin-top: 10px; }
+input[type="text"] { width: 100%; font: inherit; color: var(--ink); background: var(--bg); padding: 7px 8px; border: 1px solid var(--line); border-radius: 6px; }

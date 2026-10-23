@@ -35,7 +35,34 @@
       <button id="btn-show">Show all</button>
     </div>
 
-    <p class="hint">The same commands are on the Home tab, in the Sticky Notes group.</p>
+    <details class="settings">
+      <summary>Settings</summary>
+
+      <p class="label">New note position</p>
+      <div class="seg" role="group" aria-label="New note position">
+        <button data-position="tr">Top right</button>
+        <button data-position="tl">Top left</button>
+        <button data-position="tc">Top center</button>
+      </div>
+
+      <p class="label">New note color</p>
+      <div class="swatches" role="group" aria-label="New note color">
+        <button data-color="yellow" aria-label="Yellow"></button>
+        <button data-color="pink" aria-label="Pink"></button>
+        <button data-color="blue" aria-label="Blue"></button>
+        <button data-color="green" aria-label="Green"></button>
+        <button data-color="orange" aria-label="Orange"></button>
+        <button data-color="purple" aria-label="Purple"></button>
+      </div>
+      <button id="btn-recolor" class="wide"><span id="recolor-label">Apply yellow to all notes</span></button>
+
+      <label class="label" for="prefix">Note prefix (e.g. your initials)</label>
+      <input id="prefix" type="text" placeholder="e.g. FL:" autocomplete="off">
+
+      <p class="hint">Settings are saved for you on this device.</p>
+    </details>
+
+    <p class="hint">Add note and the Notes menu are on the Home tab.</p>
   </main>
   <script src="notes.js"></script>
 </body>
