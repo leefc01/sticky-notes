@@ -49,4 +49,14 @@ def pane(d):
     d.rectangle((190, 50, 290, 270), fill=NOTE, outline=INK, width=W // 2 + 4)
     for y in (100, 140, 180): d.line((210, y, 270, y), fill=INK, width=12)
 make("pane", pane)
+def done(d):
+    note(d, (20, 20, 240, 240))
+    d.ellipse((170, 170, 310, 310), fill=(46, 125, 50, 255))
+    d.line([(200, 245), (230, 275), (282, 210)], fill="white", width=W, joint="curve")
+make("done", done)
+def deletedone(d):
+    trash(d)
+    d.ellipse((180, 180, 310, 310), fill=(46, 125, 50, 255))
+    d.line([(207, 248), (234, 275), (282, 216)], fill="white", width=W - 4, joint="curve")
+make("deletedone", deletedone)
 print(sorted(os.listdir(OUT)))

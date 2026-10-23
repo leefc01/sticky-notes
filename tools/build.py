@@ -10,9 +10,10 @@ from xml.sax.saxutils import escape
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ADDIN_ID = "6f1c2b7e-4a3d-4c9e-9b52-5e0d8a7c31f4"   # keep stable across versions
-VERSION = "1.2.0.0"                                   # = APP_VERSION in notes.js + ".0" (a test checks they match)
+VERSION = "1.3.0.0"                                   # = APP_VERSION in notes.js + ".0" (a test checks they match)
 # 1.0.1.0: ribbon reduced to two controls, "Add note" button + "Notes" drop-down menu.
 # 1.2.0.0 (v1.2): "Add Note" also in the Notes menu; title-case labels; free-slot placement.
+# 1.3.0.0 (v1.3): Toggle Done and Delete Done in the Notes menu.
 # From v1.2 on, manifest version matches the product version (v1.0 = 1.0.0.0, v1.1 shipped as 1.0.1.0).
 
 # Ribbon layout: PRIMARY is a standalone button; MENU_ITEMS sit in the "Notes" drop-down.
@@ -20,9 +21,11 @@ PRIMARY = ("Add", "addNote", "Add Note", "Add a sticky note to the current slide
 MENU = ("Menu", "Notes", "Jump between, hide, show or delete sticky notes.", "group")
 MENU_ITEMS = [  # id, function (or None for pane), label, tooltip, icon
     ("MenuAdd", "addNote", "Add Note", "Add a sticky note to the current slide.", "add"),
+    ("ToggleDone", "toggleDone", "Toggle Done", "Mark the selected notes done (or all notes on this slide); if they're all done already, reopen them.", "done"),
     ("Prev", "previousNote", "Previous", "Go to the previous slide that has a note (wraps around).", "prev"),
     ("Next", "nextNote", "Next", "Go to the next slide that has a note (wraps around).", "next"),
     ("Delete", "deleteNote", "Delete", "Delete the selected note, or all notes on this slide if none is selected.", "delete"),
+    ("DeleteDone", "deleteDoneNotes", "Delete Done", "Delete every done note in this deck (asks first).", "deletedone"),
     ("DeleteAll", "deleteAllNotes", "Delete All", "Delete every note in this deck (asks first).", "deleteall"),
     ("Hide", "hideAllNotes", "Hide All", "Hide every note in this deck.", "hide"),
     ("Show", "showAllNotes", "Show All", "Show every note in this deck.", "show"),
