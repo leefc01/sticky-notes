@@ -9,6 +9,7 @@
 (function (root) {
   "use strict";
 
+  var APP_VERSION = "1.2.0"; // product version major.minor.patch; manifest = APP_VERSION + ".0" (tools/build.py)
   var PREFIX = "SGNote_";
   var TAG = "SGNOTE";
   var NOTE_W = 144; // 2 in
@@ -26,7 +27,7 @@
     orange: { name: "Orange", fill: "#FFD3A3", border: "#E0944A" },
     purple: { name: "Purple", fill: "#DCCBFF", border: "#9A7AE0" }
   };
-  var POSITIONS = { tr: "Top right", tl: "Top left", tc: "Top center" };
+  var POSITIONS = { tl: "Top Left", tc: "Top Center", tr: "Top Right" };
 
   // ---------- preferences (per user, per device; defaults if storage is unavailable) ----------
 
@@ -64,6 +65,22 @@
     if (position === "tl") return { left: d, top: d };
     if (position === "tc") return { left: Math.max(0, (slideW - NOTE_W) / 2), top: d };
     return { left: Math.max(0, slideW - NOTE_W - d), top: d }; // tr (default)
+  }
+
+  /**
+   * First free slot (0, 1, 2, …) at a position: a slot is taken only if a note
+   * actually sits there (within 2 pt). Notes elsewhere on the slide, or ones the
+   * user dragged away, don't push a new note down.
+   */
+  function freeSlot(position, slideW, existing) {
+    for (var n = 0; n < 40; n++) {
+      var p = notePosition(position, slideW, n);
+      var taken = existing.some(function (e) {
+        return Math.abs(e.left - p.left) <= 2 && Math.abs(e.top - p.top) <= 2;
+      });
+      if (!taken) return n;
+    }
+    return 0;
   }
 
   /** Initial text and which part to select so typing replaces just the placeholder. */
@@ -130,6 +147,7 @@
         c.items.forEach(function (sh) {
           if (sh.name && sh.name.indexOf(PREFIX) === 0) {
             sh.tags.load("items/key,items/value");
+            sh.load("left,top"); // for free-slot placement of new notes
             candidates.push({ slideIndex: i, slideId: slides.items[i].id, shape: sh });
           }
         });
@@ -189,8 +207,10 @@
         if (i === null) return;
         idx = i;
         return slideWidth(context).then(function (w) {
-          var onSlide = scanned.notes.filter(function (n) { return n.slideIndex === idx; }).length;
-          var pos = notePosition(prefs.position, w, onSlide);
+          var onSlide = scanned.notes
+            .filter(function (n) { return n.slideIndex === idx; })
+            .map(function (n) { return { left: n.shape.left, top: n.shape.top }; });
+          var pos = notePosition(prefs.position, w, freeSlot(prefs.position, w, onSlide));
           var color = COLORS[prefs.color];
           var init = initialText(prefs.prefix);
           var slide = scanned.slides[idx];
@@ -416,7 +436,7 @@
     });
     var input = el("prefix");
     if (input && document.activeElement !== input) input.value = prefs.prefix;
-    setText("recolor-label", "Apply " + COLORS[prefs.color].name.toLowerCase() + " to all notes");
+    setText("recolor-label", "Apply " + COLORS[prefs.color].name + " to All Notes");
   }
 
   function bindSettings() {
@@ -445,6 +465,8 @@
     savePrefs: savePrefs,
     _reloadPrefs: function () { prefs = loadPrefs(); return prefs; },
     _notePosition: notePosition,
+    _freeSlot: freeSlot,
+    version: APP_VERSION,
     _initialText: initialText,
     next: function () { return goTo(1); },
     previous: function () { return goTo(-1); },
@@ -486,6 +508,7 @@
       bindButton("btn-confirm-no", api.cancelDeleteAll);
       bindButton("btn-refresh", api.refresh);
       bindSettings();
+      setText("version", "Sticky Notes v" + APP_VERSION.replace(/\.0$/, "")); // 1.2.0 -> v1.2, 1.2.1 -> v1.2.1
 
       if (!hasApi("1.10")) {
         setMsg("Update Office to use Sticky Notes. Hide all / Show all need a newer PowerPoint.");

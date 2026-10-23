@@ -34,3 +34,4 @@ button.link { border: none; background: none; color: var(--muted); padding: 0; t
 .swatches button[aria-pressed="true"] { outline: 2px solid #2f6fd6; outline-offset: 2px; }
 button.wide { width: 100%; margin-top: 10px; }
 input[type="text"] { width: 100%; font: inherit; color: var(--ink); background: var(--bg); padding: 7px 8px; border: 1px solid var(--line); border-radius: 6px; }
+.version { color: var(--muted); font-size: 11px; margin-top: 18px; text-align: right; }

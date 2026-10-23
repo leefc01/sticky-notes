@@ -10,25 +10,25 @@ Real sticky notes work because you can't miss them. They sit right on the page, 
 
 ## What it does
 
-Two controls on the Home tab: **Add note** and a **Notes** menu.
+Two controls on the Home tab: **Add Note** and a **Notes** menu (which also includes Add Note).
 
 | Command | What it does |
 | --- | --- |
-| **Add note** | Adds a note to the top corner of the current slide, ready to type into. |
+| **Add Note** | Adds a note to the top corner of the current slide, ready to type into. |
 | **Previous / Next** | Jumps to the previous or next slide that has a note, wrapping around at the ends. |
 | **Delete** | Deletes the selected note, or all notes on the current slide if none is selected. |
-| **Delete all** | Deletes every note in the deck, after asking for confirmation. |
-| **Hide all / Show all** | Hides or shows every note in the deck, for example before presenting. |
-| **Open pane** | Opens the side panel: note count, messages and settings. |
+| **Delete All** | Deletes every note in the deck, after asking for confirmation. |
+| **Hide All / Show All** | Hides or shows every note in the deck, for example before presenting. |
+| **Open Pane** | Opens the side panel: note count, messages and settings. |
 
-**Settings** (in the pane, saved per user): where new notes appear (top right, top left, top center), note color (six choices, plus "apply to all notes"), and an optional prefix such as your initials.
+**Settings** (in the pane, saved per user): where new notes appear (Top Left, Top Center, Top Right), note color (six choices, plus "apply to all notes"), and an optional prefix such as your initials.
 
 Notes are ordinary shapes saved in the deck. They travel with the file and are visible to anyone who opens it, even without the add-in. They also appear when you present or print, unless you hide them first.
 
 ## Requirements
 
 - Microsoft 365 PowerPoint on **Windows, Mac or the web**
-- Hide all / Show all need a recent build (PowerPoint JavaScript API 1.10)
+- Hide All / Show All need a recent build (PowerPoint JavaScript API 1.10)
 - PowerPoint for iPad can show and edit notes, but the buttons aren't available there
 
 ## Privacy
@@ -52,9 +52,16 @@ The add-in runs entirely inside PowerPoint. Note text stays in your presentation
 
 Sticky Notes is deployed to users by their Microsoft 365 administrator through **Admin center → Settings → Integrated apps**, using the add-in's manifest file. Once deployed, it appears on the Home tab in PowerPoint.
 
+## Versions
+
+| Version | Changes |
+| --- | --- |
+| 1.2 | Add Note also in the Notes menu, title-case labels, smarter note placement, version shown in the pane |
+| 1.1 | Two-control ribbon, settings for position, color and prefix, cursor ready in new notes |
+| 1.0 | First release |
+
 ## Roadmap
 
-- Choose where new notes appear (top right, top left, top center)
 - Keyboard shortcuts
 - A list of all notes in the pane, with click to jump
 - Author, date and a "resolved" state for team review

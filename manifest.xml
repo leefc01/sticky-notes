@@ -5,7 +5,7 @@
            xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
            xsi:type="TaskPaneApp">
   <Id>6f1c2b7e-4a3d-4c9e-9b52-5e0d8a7c31f4</Id>
-  <Version>1.0.1.0</Version>
+  <Version>1.2.0.0</Version>
   <ProviderName>StatusGo</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Sticky Notes"/>
@@ -54,6 +54,12 @@
                   <Supertip><Title resid="Menu.Label"/><Description resid="Menu.Tip"/></Supertip>
                   <Icon><bt:Image size="16" resid="Icon.group.16"/><bt:Image size="32" resid="Icon.group.32"/><bt:Image size="80" resid="Icon.group.80"/></Icon>
                   <Items>
+                    <Item id="SGNotes.MenuAdd">
+                      <Label resid="MenuAdd.Label"/>
+                      <Supertip><Title resid="MenuAdd.Label"/><Description resid="MenuAdd.Tip"/></Supertip>
+                      <Icon><bt:Image size="16" resid="Icon.add.16"/><bt:Image size="32" resid="Icon.add.32"/><bt:Image size="80" resid="Icon.add.80"/></Icon>
+                      <Action xsi:type="ExecuteFunction"><FunctionName>addNote</FunctionName></Action>
+                    </Item>
                     <Item id="SGNotes.Prev">
                       <Label resid="Prev.Label"/>
                       <Supertip><Title resid="Prev.Label"/><Description resid="Prev.Tip"/></Supertip>
@@ -141,19 +147,21 @@
       <bt:ShortStrings>
         <bt:String id="Group.Label" DefaultValue="Sticky Notes"/>
         <bt:String id="GetStarted.Title" DefaultValue="Sticky Notes is ready"/>
-        <bt:String id="Add.Label" DefaultValue="Add note"/>
+        <bt:String id="Add.Label" DefaultValue="Add Note"/>
+        <bt:String id="MenuAdd.Label" DefaultValue="Add Note"/>
         <bt:String id="Prev.Label" DefaultValue="Previous"/>
         <bt:String id="Next.Label" DefaultValue="Next"/>
         <bt:String id="Delete.Label" DefaultValue="Delete"/>
-        <bt:String id="DeleteAll.Label" DefaultValue="Delete all"/>
-        <bt:String id="Hide.Label" DefaultValue="Hide all"/>
-        <bt:String id="Show.Label" DefaultValue="Show all"/>
-        <bt:String id="Pane.Label" DefaultValue="Notes pane"/>
+        <bt:String id="DeleteAll.Label" DefaultValue="Delete All"/>
+        <bt:String id="Hide.Label" DefaultValue="Hide All"/>
+        <bt:String id="Show.Label" DefaultValue="Show All"/>
+        <bt:String id="Pane.Label" DefaultValue="Open Pane"/>
         <bt:String id="Menu.Label" DefaultValue="Notes"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="GetStarted.Description" DefaultValue="Use the Sticky Notes group on the Home tab to add and manage notes."/>
-        <bt:String id="Add.Tip" DefaultValue="Add a yellow sticky note to the current slide."/>
+        <bt:String id="Add.Tip" DefaultValue="Add a sticky note to the current slide."/>
+        <bt:String id="MenuAdd.Tip" DefaultValue="Add a sticky note to the current slide."/>
         <bt:String id="Prev.Tip" DefaultValue="Go to the previous slide that has a note (wraps around)."/>
         <bt:String id="Next.Tip" DefaultValue="Go to the next slide that has a note (wraps around)."/>
         <bt:String id="Delete.Tip" DefaultValue="Delete the selected note, or all notes on this slide if none is selected."/>

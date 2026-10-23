@@ -26,27 +26,27 @@
     </section>
 
     <div class="grid">
-      <button id="btn-add" class="primary">Add note</button>
+      <button id="btn-add" class="primary">Add Note</button>
       <button id="btn-prev">Previous</button>
       <button id="btn-next">Next</button>
       <button id="btn-del">Delete</button>
-      <button id="btn-delall">Delete all</button>
-      <button id="btn-hide">Hide all</button>
-      <button id="btn-show">Show all</button>
+      <button id="btn-delall">Delete All</button>
+      <button id="btn-hide">Hide All</button>
+      <button id="btn-show">Show All</button>
     </div>
 
     <details class="settings">
       <summary>Settings</summary>
 
-      <p class="label">New note position</p>
-      <div class="seg" role="group" aria-label="New note position">
-        <button data-position="tr">Top right</button>
-        <button data-position="tl">Top left</button>
-        <button data-position="tc">Top center</button>
+      <p class="label">New Note Position</p>
+      <div class="seg" role="group" aria-label="New Note Position">
+        <button data-position="tl">Top Left</button>
+        <button data-position="tc">Top Center</button>
+        <button data-position="tr">Top Right</button>
       </div>
 
-      <p class="label">New note color</p>
-      <div class="swatches" role="group" aria-label="New note color">
+      <p class="label">New Note Color</p>
+      <div class="swatches" role="group" aria-label="New Note Color">
         <button data-color="yellow" aria-label="Yellow"></button>
         <button data-color="pink" aria-label="Pink"></button>
         <button data-color="blue" aria-label="Blue"></button>
@@ -54,15 +54,16 @@
         <button data-color="orange" aria-label="Orange"></button>
         <button data-color="purple" aria-label="Purple"></button>
       </div>
-      <button id="btn-recolor" class="wide"><span id="recolor-label">Apply yellow to all notes</span></button>
+      <button id="btn-recolor" class="wide"><span id="recolor-label">Apply Yellow to All Notes</span></button>
 
-      <label class="label" for="prefix">Note prefix (e.g. your initials)</label>
+      <label class="label" for="prefix">Note Prefix (e.g. Your Initials)</label>
       <input id="prefix" type="text" placeholder="e.g. FL:" autocomplete="off">
 
       <p class="hint">Settings are saved for you on this device.</p>
     </details>
 
-    <p class="hint">Add note and the Notes menu are on the Home tab.</p>
+    <p class="hint">Add Note and the Notes menu are on the Home tab.</p>
+    <p id="version" class="version"></p>
   </main>
   <script src="notes.js"></script>
 </body>
