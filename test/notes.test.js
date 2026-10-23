@@ -254,3 +254,34 @@ test("Preferences persist and bad stored values fall back to defaults", () => {
   store["sgnotes.prefs.v1"] = "not json";
   assert.deepStrictEqual(api._reloadPrefs(), { position: "tr", color: "yellow", prefix: "" });
 });
+
+test("Changing position: a lone note at the new spot isn't offset", async () => {
+  resetPrefs({ position: "tl" });
+  const deck = mkDeck([[]]);
+  await api.addNote();                       // top left, slot 0
+  api.savePrefs({ position: "tr" });
+  await api.addNote();                       // top right should be slot 0, not 1
+  await api.addNote();                       // then cascade at top right
+  assert.deepStrictEqual(notesOn(deck, 0).map((s) => [s.left, s.top]), [[0, 0], [816, 0], [798, 18]]);
+});
+
+test("A note dragged away frees its slot; gaps are filled first", () => {
+  const w = 960;
+  assert.strictEqual(api._freeSlot("tr", w, [{ left: 500, top: 300 }]), 0, "moved note doesn't count");
+  assert.strictEqual(api._freeSlot("tr", w, [{ left: 798, top: 18 }]), 0, "slot 0 free even if slot 1 taken");
+  assert.strictEqual(api._freeSlot("tr", w, [{ left: 816, top: 0 }, { left: 798, top: 18 }]), 2);
+});
+
+test("Settings order and labels are title case, Top Right default", () => {
+  const html = require("fs").readFileSync(require("path").join(__dirname, "..", "taskpane.html"), "utf8");
+  const order = [...html.matchAll(/data-position="(\w+)">([^<]+)</g)].map((m) => [m[1], m[2]]);
+  assert.deepStrictEqual(order, [["tl", "Top Left"], ["tc", "Top Center"], ["tr", "Top Right"]]);
+  resetPrefs();
+  assert.strictEqual(api.prefs().position, "tr");
+});
+
+test("Pane version matches the manifest version", () => {
+  const src = require("fs").readFileSync(require("path").join(__dirname, "..", "tools", "build.py"), "utf8");
+  const manifestVersion = src.match(/VERSION = "([\d.]+)"/)[1];
+  assert.strictEqual(manifestVersion, api.version + ".0");
+});
