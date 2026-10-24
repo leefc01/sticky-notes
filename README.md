@@ -89,6 +89,9 @@ Microsoft describes these as testing and sideloading methods. They work, but you
 
 - The add-in's code is served from this site, so it always runs the latest published version. The version is shown at the bottom of the Sticky Notes pane.
 - Hide All / Show All need a recent Microsoft 365 build; older builds show a message instead.
+
+## Uninstalling
+
 - To remove it: on the web, use **My Add-ins → ⋯ → Remove**; on Windows, remove the catalog in Trust Center; on Mac, delete `manifest.xml` from the `wef` folder.
 
 ## Versions
@@ -103,4 +106,4 @@ Microsoft describes these as testing and sideloading methods. They work, but you
 ## Roadmap
 
 - Keyboard shortcuts
-- Author and date on each note for team review
+
