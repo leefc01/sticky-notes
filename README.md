@@ -92,7 +92,10 @@ Microsoft describes these as testing and sideloading methods. They work, but you
 
 ## Uninstalling
 
-- To remove it: on the web, use **My Add-ins → ⋯ → Remove**; on Windows, remove the catalog in Trust Center; on Mac, delete `manifest.xml` from the `wef` folder.
+To remove it: 
+- on the web, use **My Add-ins → ⋯ → Remove**
+- on Windows, remove the catalog in Trust Center
+- on Mac, delete `manifest.xml` from the `wef` folder
 
 ## Versions
 
