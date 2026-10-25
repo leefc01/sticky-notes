@@ -23,9 +23,28 @@ Two controls on the Home tab: **Add Note** and a **Notes** menu (which also incl
 | **Hide All / Show All** | Hides or shows every note in the deck, for example before presenting. |
 | **Open Pane** | Opens the side panel: a checklist of all notes by slide (tick to mark done, click to jump), a progress bar, messages and settings. |
 
-**Settings** (in the pane, saved per user): where new notes appear (Top Left, Top Center, Top Right), note color (six choices, plus "apply to all notes"), an optional prefix such as your initials, a Done stamp with who marked it, and whether Previous / Next skip done notes.
-
 Notes are ordinary shapes saved in the deck. They travel with the file and are visible to anyone who opens it, even without the add-in. They also appear when you present or print, unless you hide them first.
+
+## Settings
+
+Settings are in the Sticky Notes pane, under **Settings**. They're saved for you on the device you set them on, so your PC, Mac and browser each keep their own. They change how *new* notes look and behave; existing notes stay as they are unless a setting says otherwise.
+
+### New Notes
+
+| Setting | Options | What it does |
+| --- | --- | --- |
+| **Position** | Top Left, Top Center, **Top Right** (default) | Where a new note appears, flush against the top edge of the slide. If a note already sits in that spot, the next one cascades 0.25 in down (and inward from a corner) into the first free spot. Notes elsewhere on the slide, or ones you've dragged away, don't push new notes down. |
+| **Color** | **Yellow** (default), Pink, Blue, Green, Orange, Purple | The fill of new notes, with a slightly darker border of the same color. Existing notes keep their color. |
+| **Apply [Color] to All Notes** | A link under the swatches | Recolors every note in the deck to the chosen color in one step. Done notes keep their done look, tinted with the new color. |
+| **Prefix** | Any text up to 20 characters, e.g., `FL:` (empty by default) | Starts every new note with your prefix, e.g., "FL: Note", with the word "Note" selected so you can type straight over it. Leave it empty for a plain "Note". |
+
+### Done
+
+| Setting | Options | What it does |
+| --- | --- | --- |
+| **Done Stamp** | On / **Off** (default) | When on, marking a note done adds a last line such as "— Done FL · Oct 23", so others can see who closed it and when. Reopening the note removes the stamp, as long as the line hasn't been edited. |
+| **Who** | Any text up to 20 characters, e.g., `FL` | The name or initials in the stamp. If it's empty, the stamp uses your Prefix without its trailing colon; if both are empty, it shows the date only ("— Done Oct 25"). |
+| **Skip Done Notes** (Done Navigation) | **On** (default) / Off | When on, Previous and Next jump only between slides that still have open notes, and say "No open notes" when everything is done. When off, they visit every slide that has notes. |
 
 ## Requirements
 
@@ -89,7 +108,15 @@ Microsoft describes these as testing and sideloading methods. They work, but you
 
 - The add-in's code is served from this site, so it always runs the latest published version. The version is shown at the bottom of the Sticky Notes pane.
 - Hide All / Show All need a recent Microsoft 365 build; older builds show a message instead.
-- To remove it: on the web, use **My Add-ins → ⋯ → Remove**; on Windows, remove the catalog in Trust Center; on Mac, delete `manifest.xml` from the `wef` folder.
+
+## Uninstalling
+
+Removing the add-in doesn't remove notes already in your decks. They stay as ordinary shapes. To clear them, run **Delete All** in each deck *before* uninstalling, or delete them by hand afterward.
+
+- **Organizations:** a Microsoft 365 administrator opens **Admin center → Settings → Integrated apps → Sticky Notes** and removes it, or edits **Users** to remove specific people. It can take up to 24 hours to disappear from PowerPoint.
+- **PowerPoint for the web:** go to **Home → Add-ins → More Add-ins** (or **More Settings**), open **My Add-ins**, select **⋯** on Sticky Notes, then **Remove**.
+- **PowerPoint for Windows:** go to **File → Options → Trust Center → Trust Center Settings → Trusted Add-in Catalogs**, select the Sticky Notes catalog path, choose **Remove**, then **OK** and restart PowerPoint. You can then delete the shared folder.
+- **PowerPoint for Mac:** in Finder, choose **Go → Go to Folder**, enter `~/Library/Containers/com.microsoft.Powerpoint/Data/Documents/wef`, delete `manifest.xml`, then restart PowerPoint.
 
 ## Versions
 
