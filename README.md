@@ -89,18 +89,13 @@ Microsoft describes these as testing and sideloading methods. They work, but you
 
 - The add-in's code is served from this site, so it always runs the latest published version. The version is shown at the bottom of the Sticky Notes pane.
 - Hide All / Show All need a recent Microsoft 365 build; older builds show a message instead.
-
-## Uninstalling
-
-To remove it from solo installations: 
-- on the web, use **My Add-ins → ⋯ → Remove**
-- on Windows, remove the catalog in Trust Center
-- on Mac, delete `manifest.xml` from the `wef` folder
+- To remove it: on the web, use **My Add-ins → ⋯ → Remove**; on Windows, remove the catalog in Trust Center; on Mac, delete `manifest.xml` from the `wef` folder.
 
 ## Versions
 
 | Version | Changes |
 | --- | --- |
+| 1.3.1 | Cleaner settings: grouped into New Notes and Done, consistent fields, lighter recolor link; removed the duplicate status line |
 | 1.3 | Toggle Done and Delete Done, done stamp, notes checklist with progress bar, skip done notes |
 | 1.2 | Add Note also in the Notes menu, title-case labels, smarter note placement, version shown in the pane |
 | 1.1 | Two-control ribbon, settings for position, color and prefix, cursor ready in new notes |
@@ -109,4 +104,4 @@ To remove it from solo installations:
 ## Roadmap
 
 - Keyboard shortcuts
-
+- Author and date on each note for team review

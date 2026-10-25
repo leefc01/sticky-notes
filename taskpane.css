@@ -57,3 +57,9 @@ input[type="text"] { width: 100%; font: inherit; color: var(--ink); background: 
 .switch.block { display: flex; margin-top: 14px; }
 .hint.tight { margin-top: 4px; }
 input[type="text"]:disabled { opacity: .5; }
+h2.group { font-size: 13px; font-weight: 700; margin: 18px 0 2px; padding-top: 10px; border-top: 1px solid var(--line); }
+.settings > h2.group:first-of-type { border-top: none; padding-top: 0; margin-top: 8px; }
+.indent { margin-left: 22px; padding-left: 10px; border-left: 2px solid var(--line); }
+.indent .label { margin-top: 8px; }
+button.link.small { font-size: 12px; margin-top: 8px; color: #2f6fd6; text-decoration: none; }
+button.link.small:hover { text-decoration: underline; background: none; }

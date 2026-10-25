@@ -9,7 +9,7 @@
 (function (root) {
   "use strict";
 
-  var APP_VERSION = "1.3.0"; // product version major.minor.patch; manifest = APP_VERSION + ".0" (tools/build.py)
+  var APP_VERSION = "1.3.1"; // product version major.minor.patch; manifest = APP_VERSION + ".0" (tools/build.py)
   var PREFIX = "SGNote_";
   var TAG = "SGNOTE";
   var NOTE_W = 144; // 2 in

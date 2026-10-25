@@ -14,7 +14,6 @@
       <button id="btn-refresh" class="link" title="Recount notes">Refresh</button>
     </header>
 
-    <p id="status" class="status" aria-live="polite">Counting notes…</p>
     <p id="msg" class="msg" aria-live="polite"></p>
 
     <section id="confirm" class="confirm" hidden>
@@ -54,15 +53,16 @@
     <details class="settings">
       <summary>Settings</summary>
 
-      <p class="label">New Note Position</p>
-      <div class="seg" role="group" aria-label="New Note Position">
+      <h2 class="group">New Notes</h2>
+      <p class="label">Position</p>
+      <div class="seg" role="group" aria-label="New note position">
         <button data-position="tl">Top Left</button>
         <button data-position="tc">Top Center</button>
         <button data-position="tr">Top Right</button>
       </div>
 
-      <p class="label">New Note Color</p>
-      <div class="swatches" role="group" aria-label="New Note Color">
+      <p class="label">Color</p>
+      <div class="swatches" role="group" aria-label="New note color">
         <button data-color="yellow" aria-label="Yellow"></button>
         <button data-color="pink" aria-label="Pink"></button>
         <button data-color="blue" aria-label="Blue"></button>
@@ -70,25 +70,27 @@
         <button data-color="orange" aria-label="Orange"></button>
         <button data-color="purple" aria-label="Purple"></button>
       </div>
-      <button id="btn-recolor" class="wide"><span id="recolor-label">Apply Yellow to All Notes</span></button>
+      <button id="btn-recolor" class="link small"><span id="recolor-label">Apply Yellow to All Notes</span></button>
 
-      <label class="label" for="prefix">Note Prefix (e.g. Your Initials)</label>
-      <input id="prefix" type="text" placeholder="e.g. FL:" autocomplete="off">
+      <label class="label" for="prefix">Prefix (e.g., Your Initials)</label>
+      <input id="prefix" type="text" placeholder="e.g., FL:" autocomplete="off">
 
+      <h2 class="group">Done</h2>
       <p class="label">Done Stamp</p>
-      <div class="inline">
-        <label class="switch"><input id="stamp-on" type="checkbox"> On</label>
-        <input id="who" type="text" placeholder="Who (e.g. FL)" autocomplete="off" aria-label="Done Stamp Who">
+      <label class="switch"><input id="stamp-on" type="checkbox"> Add a stamp when marking done</label>
+      <div class="indent">
+        <label class="label" for="who">Who (e.g., Your Initials)</label>
+        <input id="who" type="text" placeholder="e.g., FL" autocomplete="off">
+        <p id="stamp-preview" class="hint tight">Off</p>
       </div>
-      <p id="stamp-preview" class="hint tight">Off</p>
 
-      <label class="switch block"><input id="skip-done" type="checkbox" checked> Skip Done Notes</label>
+      <p class="label">Done Navigation</p>
+      <label class="switch"><input id="skip-done" type="checkbox" checked> Skip Done Notes</label>
       <p class="hint tight">Previous / Next jump only to open notes.</p>
 
       <p class="hint">Settings are saved for you on this device.</p>
     </details>
 
-    <p class="hint">Add Note and the Notes menu are on the Home tab.</p>
     <p id="version" class="version"></p>
   </main>
   <script src="notes.js"></script>
